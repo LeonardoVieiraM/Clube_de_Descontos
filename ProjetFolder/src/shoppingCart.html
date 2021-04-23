@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="styleCart.css">
+    <link rel="stylesheet" href="MainPageCss.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+    <header class="container header">
+            <div class="topnav">
+                <input id="SearchBarId" type="text" placeholder="Search..">
+                <a id="minhaContaId" class="active" href="#home">Minha Conta</a>
+                <a id="carrinhoId" href="MainPage.html">Página Inicial</a>
+
+            </div>
+    </header>
+
+    <main class="container main">
+
+        <!--<div class="row">-->
+
+            <div class="grid-container">
+
+                <div class="grid-item1" id="carrinho">
+                    <h2 class="">Sacola</h2>
+                    <div class="grid-container">
+                        <div class="grid-product" id="produto">Produto
+                            <div class="">
+                                <div class="">
+                                    <img width="100" height="100" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_130,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B71130/281c8568-664a-4558-b305-8383905b78f5-locao-hidratante-corporal-desodorante-nativa-spa-baunilha-de-madagascar-400ml.png" data-src="https://res.cloudinary.com/beleza-na-web/image/upload/w_130,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B71130/281c8568-664a-4558-b305-8383905b78f5-locao-hidratante-corporal-desodorante-nativa-spa-baunilha-de-madagascar-400ml.png" data-expand="100" alt="Loção Hidratante Desodorante Corporal Nativa SPA Baunilha de Madagascar 400ml" class="sc-fznJRM ACwun sc-pITNg wVdMu lazyloaded">
+                                    <div class="">
+                                        <div class="">Nativa SPA</div>
+                                        <span>Loção Hidratante Desodorante Corporal  Baunilha de Madagascar 400ml </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-quantity">Quantidade
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <span class="">
+                                            <select data-cy="SelectItem">
+                                                <option value="1">1 </option><option value="2">2 </option><option value="3">3 </option><option value="4">4 </option><option value="5">5 </option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div data-cy="RemoveItem" class="">
+                                        <a size="10" class="">
+                                            <button type="button" class="btn btn-danger" onclick="remover()">Remover</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-ship">Entrega
+                            <div class="">-</div>
+                        </div>
+
+                        <div class="grid-price">Preço
+                            <div class="">
+                                <div class="">
+                                    <span default="" size="14" font-weight="500" class="">
+                                        <span class="price-unit">R$ 61,90</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="grid-item2" id="produtos">
+
+                    <div class="scroll">
+
+                        <h2 class="">Aproveite e adicione à sua Sacola</h2>
+                        <div class="">
+
+                            <div class="item" id="item1">
+                                <img width="110" height="110" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_297,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B71192/7df793e3-fc32-4208-bf92-64b8700d118b-locao-hidratante-corporal-desodorante-nativa-spa-lichia-400ml.png" data-expand="100" alt="Loção Hidratante Corporal Desodorante Nativa SPA Lichia 400ml" class="">
+                                <div class="">
+                                    <span class="">Está de volta</span>
+                                </div>
+                                <strong class="">Nativa SPA</strong>
+                                <p size="13" class="">Loção Hidratante Corporal Desodorante  Lichia 400ml</p>
+                                <div class="">
+                                    <span class="">
+                                        <span size="14" font-weight="500" class="">
+                                            <span class="price-unit">R$ 61,90</span>
+                                         </span>
+                                    </span>
+                                 </div>
+                                 <div class="">
+                                    <button type="button" class="btn btn-success add-btn">Adicionar</button>
+                                </div>
+                            </div>
+
+                            <div class="item" id="item2">
+                                <img width="110" height="110" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_297,f_auto,fl_progressive,q_auto:eco/v1/imagens/products/B75880/B75880.jpg" data-expand="100" alt="Loção Desodorante Hidratante Corporal Cuide Se Bem Sol e Água Fresca, 400ml" class="">
+                                <div class="">
+                                    <span class="">Está de volta</span>
+                                </div>
+                                <strong class="">Cuide-se bem</strong>
+                                <p size="13" class="">Loção Desodorante Hidratante Corporal Cuide Se Bem Sol e Água Fresca, 400ml</p>
+                                <div class="">
+                                    <span class="">
+                                        <span size="14" font-weight="500" class="">
+                                            <span class="price-unit">R$ 48,90</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <button type="button" class="btn btn-success add-btn">Adicionar</button>
+                                </div>
+                            </div>
+
+                            <div class="item" id="item3">
+                                <img width="110" height="110" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_297,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B72250/e32b8169-4285-463b-9b37-621b8db3a4bc-desodorante-colonia-body-splash-nativa-spa-baunilha-de-madagascar-200ml.png" data-expand="100" alt="Desodorante Colônia Body Splash Nativa SPA Baunilha de Madagascar 200ml" class="">
+                                <div class="">
+                                    <span class="">Está de volta</span>
+                                </div>
+                                <strong class="">Nativa SPA</strong>
+                                <p size="13" class="">Desodorante Colônia Body Splash  Baunilha de Madagascar 200ml</p>
+                                <div class="">
+                                    <span class="">
+                                        <span size="14" font-weight="500" class="">
+                                            <span class="price-unit">R$ 63,90</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <button type="button" class="btn btn-success add-btn">Adicionar</button>
+                                </div>
+                            </div>
+
+                            <div class="item" id="item4">
+                                <img width="110" height="110" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_297,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B71177/ff74d0ad-3d73-4956-9ce5-2c8e3905f536-creme-hidratante-para-maos-desodorante-nativa-spa-baunilha-de-madagascar-75g.png" data-expand="100" alt="Creme Hidratante para Mãos Desodorante Nativa SPA Baunilha de Madagascar 75g" class="">
+                                <div class="">
+                                    <span class="">Está de volta</span>
+                                </div>
+                                <strong class="">Nativa SPA</strong>
+                                <p size="13" class="">Creme Hidratante para Mãos Desodorante  Baunilha de Madagascar 75g</p>
+                                <div class="">
+                                    <span class="">
+                                        <span size="14" font-weight="500" class="">
+                                            <span class="price-unit">R$ 39,90</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="" id="item1">
+                                    <button type="button" class="btn btn-success add-btn">Adicionar</button>
+                                </div>
+                            </div>
+
+                            <div class="item" id="item5">
+                                <img width="110" height="110" src="https://res.cloudinary.com/beleza-na-web/image/upload/w_297,f_auto,fl_progressive,q_auto:eco/v1/imagens/product/B73782/358a5d41-f84c-4c38-975d-474e5727663f-locao-hidratante-corporal-desodorante-nativa-spa-lichia-200ml.png" data-expand="100" alt="Loção Hidratante Corporal Desodorante Nativa SPA Lichia 200ml" class="">
+                                <div class="">
+                                    <span class="">Está de volta</span>
+                                </div>
+                                <strong class="">Nativa SPA</strong>
+                                <p size="13" class="">Loção Hidratante Corporal Desodorante  Lichia 200ml</p>
+                                <div class="">
+                                    <span class="">
+                                        <span size="14" font-weight="500" class="">
+                                            <span class="price-unit">R$ 42,90</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <button type="button" class="btn btn-success add-btn">Adicionar</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="grid-item3" id="compras">
+
+                    <div class="">
+                        <div class="">
+                            <dl class="">
+                                <dt class="">Produtos: <small color="#4a4a4a" class="" data-darkreader-inline-color="" style="--darkreader-inline-color:#b4ab9e;">(<span>1 item</span>)</small></dt>
+                                <dd class=""> 
+                                    <span size="15" font-weight="700" class="">
+                                        <span class="price-unit">R$ 61,90</span>
+                                    </span>
+                                </dd>
+                            </dl>
+                            <hr class="">
+                            <dl class="">
+                                <dt class="">Subtotal</dt>
+                                <dt class="">
+                                    <span font-weight="600" class="">
+                                        <span class="price-unit">R$ 61,90</span>
+                                    </span>
+                                </dt>
+                            </dl>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <label> Tem cupom de desconto? </label>
+                                <form>
+                                    <div class="">
+                                        <div class="">
+                                            <div type="" class="">
+                                                <div height="2.0625rem" type="" class="">
+                                                    <input height="2.0625rem" name="coupon-code" id="coupon-code" placeholder="Código de cupom" autocomplete="off" type="text" class="" value="">
+                                                </div>
+                                            </div>
+                                            <p class=""></p>
+                                        </div>
+                                        <button type="submit" class="">Aplicar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="">
+                            <a data-cy="ProceedCheckout" href="/login" class="">Finalizar compra</a>
+                        </div>
+                        <div class="">
+                            <a size="14" href="https://www.boticario.com.br/corpo-e-banho/hidratante" class="">Continuar Comprando<i direction="right" size="10" class=""></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        <!--</div>-->
+
+    </main>
+
+    <footer class="container footer">
+
+        <div class="row">
+
+            <div class="footer_area">
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="app.js" ></script>
+
+</body>
+
+
+</html>
