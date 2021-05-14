@@ -4,12 +4,17 @@
 
 
 body{
-    background-color: rgb(255, 255, 255);
+    background-color: aliceblue;
     color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
 }
 
 
 .navbar {
+    width: 100%;
     margin: 0%;
     padding: 0%;
     border-color: rgb(4, 214, 241);
@@ -23,10 +28,10 @@ body{
 
 
 .conteudo1 {
+    min-width: 100%;
     margin: 0%;
-    padding: 0%;
     background-color: rgb(250, 250, 250);
-    padding: 50px;
+    padding: 5%;
     margin-bottom: 10px;
     border-color: rgb(233, 182, 134);
     border-style: solid;
@@ -34,7 +39,7 @@ body{
     font-size: 1.4em;
     background-image: url("../Assets/imgs/mainPageImg02.png");
     min-height: 500px;
-    background-position-y: -000px;
+    background-position-y: -00px;
     vertical-align: middle;
     background-size: cover;
 }
@@ -56,7 +61,7 @@ body{
     height: 100%;
     border-radius: 10px 0px 0px 10px;
     border: rgb(53, 53, 53);
-    width: 400px;
+    width: 100%;
     vertical-align: middle;
     text-indent: 30px;
     outline:rgb(26, 66, 100);
@@ -159,10 +164,11 @@ body{
 
 .cards2
 {
+
     text-align: center;
     padding: 0;
-    width: 100%;
-    margin: 0%;
+    width: 90%;
+    margin-left: 5%;
     justify-self: center;
     align-items: center;
     justify-items: center;
@@ -171,11 +177,10 @@ body{
 
 .card {
     display: inline-flex;
+    
     text-align: center;
-    width: 20%;
-    margin-right: 0%;
-    margin-left: 0%;
-    padding: 0;
+    width: 100%;
+
 }
 
 .banners {
@@ -186,14 +191,44 @@ body{
     display: inline-block;
 }
 
+.banners a
+{
+    color:rgb(0, 0, 0);
+}
+
+.bannerElem0
+{
+    display: inline-block;
+    text-align: center;
+    text-indent: 30px;
+    width: 80%;
+    padding: 0%;
+}
+
+.bannerElem:hover
+{
+    cursor:pointer;
+}
+
+.bannerElem01
+{
+    display: inline-block;
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    height: 50px;
+    padding: 0%;
+}
+
 .bannerElem
 {
-    display: block;
+    width: 100%;
+    display: inline-block;
     text-align: center;
     padding: 0%;
     margin-left: 0px;
     margin-right: 0px;
-    
+    color: rgb(0, 0, 0);
 }
 
 
@@ -229,4 +264,113 @@ footer {
     color: rgb(255, 255, 255);
     padding: 10px;
     float: right;
+}
+
+
+.modal-title
+{
+    text-align: center;
+}
+
+.loginModalButton01
+{
+    width: 50%;
+    text-align: center;
+    color: black;
+}
+
+
+.loginModalButton01:hover
+{
+    color: rgb(63, 63, 63);
+    text-decoration: none;
+}
+
+.inputBar01
+{
+    height: 100%;
+    border-radius: 4px 4px 4px 4px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    vertical-align: middle;
+    text-indent: 20px;
+    border:1px solid rgb(207, 207, 207);
+    border-width: 2px 2px 2px 2px;
+    background-color: aliceblue;
+}
+
+.inputBar01:focus
+{
+    border-color: darkgray;
+}
+
+
+.button1
+{
+   width: 100%;
+    
+}
+
+.modal-body01 img
+{
+    width: 100%;
+    height: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+}
+
+.modal-body01 p
+{
+    text-align: left;
+    width: 100%;
+    padding-left: 10%;
+}
+
+.modal-body01 button
+{
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+/*====================================================================*/
+
+@media screen and (min-width: 922px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding:inherit;
+        
+    }
+}
+
+
+@media screen and (min-width: 649px) and (max-width: 921px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding: inherit;
+    }
+}
+
+@media screen and (max-width: 648px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding: inherit;
+    }
 }
