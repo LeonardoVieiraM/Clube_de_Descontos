@@ -26,10 +26,13 @@ window.onload = () => {
                     </div>
                 </div>
             </div>`);
-            $("#productInfo-modal03").modal()
+            $("#productInfo-modal03").modal();
         };
 
     }
 
+    //=======================================================
+
+ 
 
 }

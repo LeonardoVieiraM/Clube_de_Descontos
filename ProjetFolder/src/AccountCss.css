@@ -1,0 +1,371 @@
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+
+
+body{
+    background-color: aliceblue;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+}
+
+
+.navbar {
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    border-color: rgb(4, 214, 241);
+    border-style: solid;
+    border-Width: 0px 0px 2px 0px;
+    margin: 0px 0px 0px 0px;
+    font-size: 1.4em;
+    margin-left: 10px;
+    
+}
+
+
+.conteudo1 {
+    min-width: 100%;
+    padding: 20px;
+    
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-Width: 0px 0px 1px 0px;
+    font-size: 1.4em;
+    background-color: rgb(39, 44, 46);
+    vertical-align: middle;
+}
+
+
+.topnav
+{
+    display: table;
+    height: 80px;
+    background-color: aliceblue;
+    margin-left: 5%;
+    width: 90%;
+    border-radius: 10px 10px 10px 10px;
+}
+
+#SearchBarId
+{
+    display: table-cell;
+    height: 100%;
+    border-radius: 10px 0px 0px 10px;
+    border: rgb(53, 53, 53);
+    width: 100%;
+    vertical-align: middle;
+    text-indent: 30px;
+    outline:rgb(26, 66, 100);
+    background-color: aliceblue;
+}
+
+
+.topnav a
+{
+    display: table-cell;
+    font-size: 0.9em;
+    vertical-align: middle;
+    color: black;
+    text-align: center;
+    padding-right: 50px;
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: 0 0 0 2px;
+    border-color:rgb(235, 235, 235);
+}
+
+#carrinhoId
+{
+    border-radius: 0px 10px 10px 0px;
+    background-color: aliceblue;
+    
+}
+
+
+.whiteButton
+{
+    width: 10%;
+    margin: 0%;
+    padding-left: 0px;
+    color: aliceblue;
+    background: aliceblue;
+    border-style: solid;
+    border-radius: 0px 10px 10px 0px;
+    border-width: 0 0 0 2px;
+    
+    border-color: rgb(53, 53, 53);
+    height: 70px;
+    /*font-size: 1.9em;*/
+    background-color: aliceblue;
+    vertical-align: bottom;
+    background: aliceblue;
+    color: rgb(44, 44, 44);
+}
+
+.button-color {
+    background-color: rgb(35, 41, 47);
+    color: rgb(29, 23, 23);
+    border: rgb(255, 255, 255);
+}
+
+.equipes_img{
+    margin: 0%;
+    padding: 0%;
+    background-color: rgb(35, 41, 47);
+    padding: 20px 100px;
+    width: 100%;
+}
+
+.equipes_txt{
+    margin: 0%;
+    padding: 0%;
+    padding: 50px 20px;
+    font-size: 1.4em;
+}
+
+.conteudo2 {
+    margin-left: 0%;
+    padding: 0%;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-indent: 20%;
+    padding-left: 10%;
+}
+
+.conteudo3 {
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    display: inline;
+}
+
+.noticias_txt {
+    margin: 0%;
+    padding: 0%;
+    padding: 50px;
+    font-size: 1.4em;
+}
+
+.cards {
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    margin: 0;
+}
+
+.cards2
+{
+
+    text-align: center;
+    padding: 0;
+    width: 90%;
+    margin-left: 5%;
+    justify-self: center;
+    align-items: center;
+    justify-items: center;
+}
+
+
+.card {
+    display: inline-flex;
+    
+    text-align: center;
+    width: 100%;
+
+}
+
+.banners {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 0px; 
+    display: inline-block;
+}
+
+.banners a
+{
+    color:rgb(0, 0, 0);
+}
+
+.bannerElem0
+{
+    display: inline-block;
+    text-align: center;
+    text-indent: 30px;
+    width: 80%;
+    padding: 0%;
+}
+
+.bannerElem:hover
+{
+    cursor:pointer;
+}
+
+.bannerElem01
+{
+    display: inline-block;
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    height: 50px;
+    padding: 0%;
+}
+
+.bannerElem
+{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 0%;
+    margin-left: 0px;
+    margin-right: 0px;
+    color: rgb(0, 0, 0);
+}
+
+
+.bannerElem.btn
+{
+    width: 100%;
+    margin-top: 20px;
+    height: 50px;
+    font-size: 1.8em;
+}
+
+
+.button02
+{
+    display: inline;
+    float: right;
+    margin-right: 10%;
+}
+
+
+footer {
+    margin: 0%;
+    padding: 0%;
+    margin-top: 10px;
+    height: 200px;
+    border-style: solid;
+    border-Width: 1px 0px 0px 0px;
+    padding: 10px;
+    background-color: rgb(39, 44, 46);
+}
+
+.navbar-brand {
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    float: right;
+}
+
+
+.modal-title
+{
+    text-align: center;
+}
+
+.loginModalButton01
+{
+    width: 50%;
+    text-align: center;
+    color: black;
+}
+
+
+.loginModalButton01:hover
+{
+    color: rgb(63, 63, 63);
+    text-decoration: none;
+}
+
+.inputBar01
+{
+    height: 100%;
+    border-radius: 4px 4px 4px 4px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    vertical-align: middle;
+    text-indent: 20px;
+    border:1px solid rgb(207, 207, 207);
+    border-width: 2px 2px 2px 2px;
+    background-color: aliceblue;
+}
+
+.inputBar01:focus
+{
+    border-color: darkgray;
+}
+
+
+.button1
+{
+   width: 100%;
+    
+}
+
+.modal-body01 img
+{
+    width: 100%;
+    height: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+}
+
+.modal-body01 p
+{
+    text-align: left;
+    width: 100%;
+    padding-left: 10%;
+}
+
+.modal-body01 button
+{
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+/*====================================================================*/
+
+@media screen and (min-width: 922px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding:inherit;
+        
+    }
+}
+
+
+@media screen and (min-width: 649px) and (max-width: 921px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding: inherit;
+    }
+}
+
+@media screen and (max-width: 648px)
+{
+    .bannerElem0
+    {
+        display: inline-block;
+        text-align: center;
+        width: inherit;
+        max-width: 100%;
+        padding: inherit;
+    }
+}
