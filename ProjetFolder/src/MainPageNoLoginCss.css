@@ -38,7 +38,7 @@ body{
     border-Width: 0px 0px 2px 0px;
     font-size: 1.4em;
     background-image: url("../Assets/imgs/mainPageImg02.png");
-    min-height: 500px;
+    min-height: 200px;
     background-position-y: -00px;
     vertical-align: middle;
     background-size: cover;
@@ -81,13 +81,6 @@ body{
     border-style: solid;
     border-width: 0 0 0 2px;
     border-color:rgb(235, 235, 235);
-}
-
-#carrinhoId
-{
-    border-radius: 0px 10px 10px 0px;
-    background-color: aliceblue;
-    
 }
 
 
@@ -253,7 +246,7 @@ footer {
     margin: 0%;
     padding: 0%;
     margin-top: 10px;
-    height: 200px;
+    height: 50px;
     border-style: solid;
     border-Width: 1px 0px 0px 0px;
     padding: 10px;
@@ -333,6 +326,10 @@ footer {
     width: 50%;
     margin-left: 25%;
     text-align: center;
+}
+
+#loginId{
+    border-radius: 0px 10px 10px 0px;
 }
 
 /*====================================================================*/

@@ -43,3 +43,28 @@ window.onload = () => {
     }
 
 }
+  
+$("#trend1").click(function(){
+    $(this).find("i").toggleClass("fa-chevron-circle-down");
+    $('#trend2').toggle('1000');
+});
+  
+$("#food1").click(function(){
+    $(this).find("i").toggleClass("fa-chevron-circle-down");
+    $('#food2').toggle('1000');
+});
+  
+$("#searched1").click(function(){
+    $(this).find("i").toggleClass("fa-chevron-circle-down");
+    $('#searched2').toggle('1000');
+});
+
+$("#sports1").click(function(){
+    $(this).find("i").toggleClass("fa-chevron-circle-down");
+    $('#sports2').toggle('1000');
+});
+
+$("#beauty1").click(function(){
+    $(this).find("i").toggleClass("fa-chevron-circle-down");
+    $('#beauty2').toggle('1000');
+});

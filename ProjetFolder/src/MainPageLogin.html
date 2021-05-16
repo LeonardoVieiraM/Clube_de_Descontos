@@ -9,125 +9,35 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
         crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="MainPageNoLoginCss.css">
-        <title>
-            Clube de Descontos
-        </title>
-
-        <!--Modals-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <a href="#" style="color:rgb(65, 65, 65)" class="loginModalButton01">Login</a>
-                        <a href="#" class="loginModalButton01" data-toggle="modal"
-                        data-target="#register-modal02" data-dismiss="modal">Cadastrar</a>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Email</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email">                             
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Senha</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
-                            </div>
-                            <br>
-                            <button id="loginButton" type="reset" class="btn btn-secondary button1">Entrar</button>
-                        </form><br><br>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" tabindex="-1" role="dialog" id="register-modal02">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                            <a href="#" data-toggle="modal"
-                            data-target="#login-modal" data-dismiss="modal" class="loginModalButton01">Login</a>
-                            <a href="#" style="color:rgb(65, 65, 65)" class="loginModalButton01">Cadastrar</a>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome de Usuário</label>
-                                <input type="" class="form-control" id="exampleInputUser2" aria-describedby="emailHelp" placeholder="nome de usuario">                             
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Email</label>
-                              <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="email">                             
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Senha</label>
-                              <input type="password" class="form-control" id="exampleInputPassword2" placeholder="password">
-                            </div>
-                            
-                        
-                            Tipo de assinatura<br>
-                            
-                            <div class="form-check" style="display: inline-block; text-align: center;">
-                            
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                Free
-                                </label>
-                            </div>
-                            <div class="form-check" style="display: inline-block; text-align: center;">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                Standard
-                                </label>
-                            </div>
-                            <div class="form-check" style="display: inline-block; text-align: center;">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                                <label class="form-check-label" for="exampleRadios3">
-                                Elite
-                                </label>
-                            </div>
-                            
-                            <br><br>
-                            <button id="registerButton" type="reset" class="btn btn-secondary button1">Cadastrar</button>
-                        </form>
-                        <br><br>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal fade" tabindex="-1" role="dialog" id="productInfo-modal03">
-            
-        </div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <title>Clube de Descontos</title>
 
     </head>
+
     <body>
         <header>
-                   
+            <div class="conteudo1">
+                <div class="topnav">
+                    <input id="SearchBarId" type="text" placeholder="Search..">
+                    <a id="categoriasId" href="#about">Categorias</a>
+                    <a id="loginId" class="active" href="Account.html">Minha Conta</a>
+                </div>
+            </div>
         </header>
 
         <section style="width: 100%;">
-            <div class="conteudo1">
 
-                <div class="topnav">
-                    <input id="SearchBarId" type="text" placeholder="Search..">
-                    <a id="minhaContaId" class="active" href="Account.html">Minha Conta</a>
-                    <a id="carrinhoId" href="./shoppingCart.html">Carrinho</a>
-
-                </div>
-            </div>
             
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Trends</p>
-                    <button type="button" class="button02 btn btn-secondary">Ver todos -> </button>
+                    <button class="btn" id="trend1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
-                <div class="row cards2 gx-5 justify-content-around">
+                <div class="row cards2 gx-5 justify-content-around" id="trend2">
                     
                     <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" onclick="">
                         
@@ -171,10 +81,10 @@
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Most Searched </p>
-                    <button type="button" class="button02 btn btn-secondary">Ver todos -> </button>
+                    <button class="btn" id="searched1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
-                <div class="row cards2">
+                <div class="row cards2" id="searched2">
 
                         <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                             <img class="bannerElem card-img-top" src="../Assets/imgs/mainPageImg03-Prod.jpg" alt="Card image cap">
@@ -215,10 +125,10 @@
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Sports </p>
-                    <button type="button" class="button02 btn btn-secondary">Ver todos -> </button>
+                    <button class="btn" id="sports1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
-                <div class="row cards2">
+                <div class="row cards2" id="sports2">
 
                         <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                             <img class="bannerElem card-img-top" src="../Assets/imgs/mainPageImg04-Prod.webp" alt="Card image cap">
@@ -261,10 +171,10 @@
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Beauty </p>
-                    <button type="button" class="button02 btn btn-secondary">Ver todos -> </button>
+                    <button class="btn" id="beauty1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
-                <div class="row cards2">
+                <div class="row cards2" id="beauty2">
                     
 
                         <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -307,10 +217,10 @@
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Food </p>
-                    <button type="button" class="button02 btn btn-secondary">Ver todos -> </button>
+                    <button class="btn" id="food1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
-                <div class="row cards2">
+                <div class="row cards2" id="food2">
                     
 
                         <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
