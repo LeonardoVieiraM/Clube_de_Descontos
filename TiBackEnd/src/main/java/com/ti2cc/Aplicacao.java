@@ -7,7 +7,7 @@ import static spark.Spark.*;
 		private static Principal lojaService = new Principal();
 		private static Principal cupomService = new Principal();
 		private static Principal historicoService = new Principal();
-		public static void main(String[] args){ 
+		public static void main(String[] args){
 			port(4567);
 			
 			//Cliente
