@@ -59,6 +59,7 @@ public class DAO {
 	public int inserirCliente(Cliente cliente) { //CHECK
 		int status = -2;
 		int max = -1;
+		
 		try {
 			//conseguir um id valido e testar se o email é valido: 
 			
@@ -86,7 +87,7 @@ public class DAO {
 			}
 			
 			Statement st = conexao.createStatement();
-			String sql = "INSERT INTO cliente(id,email,nome,nascimento,senha,id_assinatura) VALUES (" + (max + 1) + ", '" + cliente.getEmail() + "', '" + cliente.getNome() + "', '" 
+			String sql = "INSERT INTO cliente(id, email,nome,nascimento,senha,id_assinatura) VALUES (" + (max + 1)+  ", '" + cliente.getEmail() + "', '" + cliente.getNome() + "', '" 
 			+ "2000-01-01" + "', '" + cliente.getSenha() + "', " + cliente.getAssinatura() + ");";
 			
 			
@@ -153,11 +154,23 @@ public class DAO {
 	public boolean excluirCliente (Cliente cliente) { //CHECK
 		boolean status = false;
 		try {
+			/*
 			Statement st = conexao.createStatement();
 			String sql = "DELETE FROM cliente WHERE email = '" + cliente.getEmail() + "'";		
 			st.executeUpdate(sql);
+			st.close();*/
+			Statement st = conexao.createStatement();
+			String sql = "DELETE FROM historico WHERE id_cliente = '" + cliente.getId() + "'";		
+			st.executeUpdate(sql);
+			st.close();
+			
+			st = conexao.createStatement();
+			sql = "DELETE FROM cliente WHERE email = '" + cliente.getEmail() + "'";		
+			st.executeUpdate(sql);
 			st.close();
 			status = true;
+			
+			
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
@@ -179,6 +192,37 @@ public class DAO {
 					clientes[i] = new Cliente();
 					clientes[i].setEmail(rs.getString("email")); 
 					clientes[i].setSenha(rs.getString("senha"));
+					return clientes[0];
+				}
+			}
+			st.close();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+			return cliente;
+		}
+		return cliente;
+		
+	}
+	
+	
+	
+	public Cliente getCliente(String email) { //CHECK
+		Cliente[] clientes = null;
+		Cliente cliente = new Cliente();
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM cliente where email ='" + email + "'");
+			if (rs.next()) {
+				rs.last();
+				clientes = new Cliente[rs.getRow()];
+				rs.beforeFirst();
+				
+				
+				for (int i = 0; rs.next();) {
+					clientes[i] = new Cliente();
+					clientes[i].setId(rs.getInt("id"));
+					clientes[i].setEmail(rs.getString("email"));
+					clientes[i].setAssinatura(rs.getInt("id_assinatura"));
 					return clientes[0];
 				}
 			}
@@ -406,6 +450,34 @@ public class DAO {
 		return cupom;
 		
 	}
+	
+	
+	
+	public Cupom[] cuponsDoCliente(int id_cliente)
+	{
+		Cupom[] cupons = null;
+		
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT id,codigo,desconto,estoque,id_loja,id_assinatura FROM cupom AS A INNER JOIN historico AS B ON A.id = B.id_codigo AND B.id_cliente = " + id_cliente + ";");
+			if (rs.next()) {
+				rs.last();
+				cupons = new Cupom[rs.getRow()];
+				rs.beforeFirst();
+				
+				for (int i = 0; rs.next(); i++) {
+					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getFloat("desconto"),
+					rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
+				}
+			}
+			st.close();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		//System.out.print("->" + cupons.toString());
+		return cupons;
+	}
+	
 	
 	public boolean queimarCupom (String codigo) { //CHECK
 		boolean status = false;

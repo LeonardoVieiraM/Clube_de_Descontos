@@ -8,17 +8,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Random;
 
-import org.json.simple.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class Principal {
 	
+	//Data:
+	private static Map<Long, String> sessions;
+	
+	public static void init()
+	{
+		sessions = new HashMap<Long, String>();
+	}
+	
+	public static long genSessionId()
+	{
+		Random rand = new Random();
+		long result = rand.nextLong();
+		while(sessions.containsKey(result))
+			result = rand.nextLong();
+		
+		return result;
+	}
+	
+	//Functions:
 	public static DAO DAO() {
 		DAO dao = new DAO();
 		return dao;
-		
-		
 	}
+	
 	
 	private static Map<String, String> getQueryMap(String query)  
 	 {  
@@ -33,6 +56,7 @@ public class Principal {
 	     return map;  
 	 } 
 	
+	
 	//Cliente	
 	public Object inserirCliente(Request request, Response response){
 		DAO dao = DAO();
@@ -40,20 +64,80 @@ public class Principal {
 		dao.conectar();
 		Map<String, String> clienteMap = getQueryMap(request.body());
 		String email = clienteMap.get("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String nome =  clienteMap.get("nome");
+		nome.replace('\'', 'ÿ');
+		nome.replace('\"', 'ÿ');
 		String nascimento =  "01/01/2000"; //request.queryParams("nascimento");
 		String senha =  clienteMap.get("senha");
+		senha.replace('\'', 'ÿ');
+		senha.replace('\"', 'ÿ');
+		
 		int id_assinatura = Integer.parseInt(clienteMap.get("id_assinatura"));
-													
+		
 		Cliente cliente = new Cliente(0,email,nome,nascimento,senha,id_assinatura);
 		
 		int status = dao.inserirCliente(cliente);
 		response.status(status == 0 ? 201 : (status == -1 ? 202 : 203));
 		
 		if(status == 0)
-			return email;
+		{
+			long newId = genSessionId();
+			sessions.put(newId, email);
+			System.out.println("Cliente inserido; email: " + email + "; id:" + newId);
+			return ((Long)newId).toString();
+		}
 		else 
-			return status == -1 ? "Email invalido2" : "Erro no servidor2";
+			return status == -1 ? "Email ja existente" : "Erro no servidor2";
+	}
+	
+	
+	
+	public Object retomarSessao(Request request, Response response)
+	{
+		DAO dao = DAO();
+		
+		dao.conectar();
+		long id = Long.parseLong(request.params("sessionId"));
+		System.out.println(request.body());
+		String email = new String("");
+		
+		if(sessions.containsKey(id))
+			email = sessions.get(id);
+		
+		if(!email.equals("") && dao.getCliente(email).getEmail().equals(email))
+		{
+			System.out.println("Sessao retomada de: " + email + "\n");
+			response.status(201);
+		}
+		else
+			response.status(202);
+		
+		System.out.println("Sessoes: " + sessions.toString() + "\n");
+		
+		return response.status() == 201 ? 
+				"Autenticado com sucesso" :
+				"Erro na autenticacao";
+	}
+	
+	
+	public Object encerrarSessao(Request request, Response response)
+	{
+		DAO dao = DAO();
+		
+		dao.conectar();
+		long id = Long.parseLong(request.params("sessionId"));
+		System.out.println(request.body());
+		if(sessions.containsKey(id))
+		{
+			sessions.remove(id);
+			response.status(201);
+		}
+		else
+			response.status(202);
+		
+		return " ";
 	}
 	
 	
@@ -61,15 +145,27 @@ public class Principal {
 		DAO dao = DAO();
 		
 		dao.conectar();
-		String email = request.params("email");
-		System.out.println(request.body());
+		long id = Long.parseLong(request.params("sessionId"));
+		String email = sessions.get(id);
 		Cliente cliente = new Cliente();
 		cliente.setEmail(email);
-		dao.excluirCliente(cliente);
-		response.status(201);
+		Cliente cliente2 = dao.getCliente(email);
 		
-		System.out.println("O cliente: " + email + " foi removido.");
-		return "O cliente: " + email + " foi removido.";
+		if(cliente2.getEmail().equals(email))
+		{
+			dao.excluirCliente(cliente2);
+			response.status(201);
+			System.out.println("O cliente: " + email + " foi removido.");
+		}
+		else
+		{
+			System.out.println("Nao foi possivel remover o cliente: " + email);
+			response.status(202);
+		}
+		
+		return response.status() == 201 ? "O cliente: " + email + " foi removido."
+										: ("Nao foi possivel remover o cliente: " + email);
+		
 	}
 	
 	public Object atualizarClienteEmail(Request request, Response response) {
@@ -133,23 +229,44 @@ public class Principal {
 		return "A assinatura do cliente foi atualizada.";
 	}
 
-	public boolean loginCliente(Request request, Response response){
+	public Object loginCliente(Request request, Response response){
 		boolean status = false;
 		DAO dao = DAO();
 		
 		dao.conectar();
 		
 		Map<String, String> clienteMap = getQueryMap(request.body());
+		
 		String email = clienteMap.get("email");
 		String senha =  clienteMap.get("senha");
 	
 		Cliente cliente = dao.getCliente(email, senha);
 		
 		if (cliente.getEmail().equals(email)) {
-			status = true;
+			
+			//remove previous session
+			while(sessions.containsValue(email))
+			{
+				long tmp = 0;
+				for(Map.Entry<Long, String> entry : sessions.entrySet())
+					if(entry.getValue().equals(email))
+					{
+						tmp = entry.getKey();
+						break;
+					}
+				
+				sessions.remove(tmp);
+				System.out.println("AAAAAAAAa");
+			}
+			
+			//create new session
+			long newId = genSessionId();
+			sessions.put(newId, email);
+			System.out.println("Cliente inserido; email: " + email + "; id:" + newId);
+			
 			response.status(201);
 			System.out.println("Login de: " + email + " realizado com sucesso.");
-			return status;	
+			return ((Long)newId).toString();
 		}
 			
 		System.out.println("Login de: " + email + " Falhou.");
@@ -374,54 +491,56 @@ public class Principal {
 		DAO dao = DAO();
 		
 		dao.conectar();
-		System.out.println(request.url());
-		String returnValue = new String("");
-		//String email = request.queryParams("email");
-
+		
+		String sessionIdStr = request.params("sessionId");
+		/*
+		long sessionId = Long.parseLong(sessionIdStr);
+		
+		if(!sessions.containsKey(sessionId) || 
+			!dao.getCliente(sessions.get(sessionId)).getEmail().equals(sessions.get(sessionId)))
+		{	
+			response.status(202);
+			System.out.println("Falha na requisicao de cupons de: " + sessionId);
+			return "";
+		}
+		response.status(201);
+		
+		int clienteId = dao.getCliente(sessions.get(sessionId)).getId();
+		*/
+		response.status(201);
 		Cupom[] cupons = dao.getCupons();
+		//System.out.println(historicoCupons.toString());
+		
+		//send the cupons in an JSON object
+		JSONObject returnValue = new JSONObject();
 		if (cupons == null) {
-			return "Nao há Cupons";
-			
+			return "";
 		}
 		else {
 			
-			int i = 0;
-			for(; i < cupons.length; ++i)
-			{
-				returnValue += "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\">" +                
-                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/mainPageImg03-Prod.jpg\" alt=\"Card image cap\">" +
-                "<div class=\"bannerElem card-body\">" +
-                "<h5 class=\"bannerElem card-title\">" + cupons[i].getCodigo() + " - " + cupons[i].getDesconto() + "%</h5>" + 
-                "<p class=\"bannerElem card-text\">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>" +
-                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
-                "<!--cuponId:" + cupons[i].getCodigo() + ";-->" +
-                "</div>" +                       
-                "</div>\n";
+			JSONArray arr = new JSONArray();
+			
+
+			for (int i = 0; i < cupons.length; i++) {
+				
+				JSONObject cupom = new JSONObject();
+				//System.out.println(historicoCupons[i].toString());
+				cupom.put("id", cupons[i].getId());
+				cupom.put("codigo", cupons[i].getCodigo());
+				cupom.put("desconto", cupons[i].getDesconto());
+				cupom.put("estoque", cupons[i].getEstoque());
+				cupom.put("id_loja", cupons[i].getLoja());
+				cupom.put("id_assinatura", cupons[i].getAssinatura());
+				
+				arr.put(cupom);
+				//cupom.clear();
 			}
 			
-			while(i % 4 != 0)
-			{
-				returnValue += "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>\n";
-				++i;
-			}
-			System.out.println(returnValue);
-			/*
-			returnValue.append("Cupons:   \n\n\n");
-			for (int i = 0; i < cupons.length; i++) {
-				if (i < (cupons.length - 1)) {
-					returnValue.append(cupons[i].dataToString()+";   ");
-					
-				}
-				else {
-					returnValue.append(cupons[i].dataToString());
-				}
-			}
-					
-			System.out.println("|" + returnValue.toString() + "|");
-			return returnValue.toString();		*/
+			returnValue.put("cupons", arr);
 		}
-		
-		return returnValue;
+				
+		System.out.println(returnValue.toString());
+		return returnValue.toString();	
 	}
 
 	//Histórico
@@ -432,9 +551,18 @@ public class Principal {
 		dao.conectar();
 		
 		Map<String, String> clienteMap = getQueryMap(request.body());
-		String codigo = clienteMap.get("codigo_cupom");
-		String email_cliente =  clienteMap.get("email_cliente");
+		String codigo = clienteMap.get("codigo_cupom");		
+		String sessionIdStr = clienteMap.get("sessionId");
+		long sessionId = Long.parseLong(sessionIdStr);
+		if(!sessions.containsKey(sessionId) || 
+			!dao.getCliente(sessions.get(sessionId)).getEmail().equals(sessions.get(sessionId)))
+		{	
+			response.status(202);
+			System.out.println("Falha na insercao de historico de: " + sessionId);
+			return "";
+		}
 		
+		String email_cliente = sessions.get(sessionId);
 		System.out.println("->" + request.body());
 		dao.inserirHistorico(email_cliente, codigo);
 		
@@ -449,27 +577,50 @@ public class Principal {
 		
 		dao.conectar();
 		
-		StringBuffer returnValue = new StringBuffer();
-		String email_cliente = request.queryParams("email_cliente");
-
-		Historico[] historico = dao.getHistorico(email_cliente);
-		if (historico == null) {
-			return null;
+		String sessionIdStr = request.params("sessionId");
+		long sessionId = Long.parseLong(sessionIdStr);
+		if(!sessions.containsKey(sessionId) || 
+			!dao.getCliente(sessions.get(sessionId)).getEmail().equals(sessions.get(sessionId)))
+		{	
+			response.status(202);
+			System.out.println("Falha na requisicao do historico de: " + sessionId);
+			return "";
+		}
+		response.status(201);
+		
+		int clienteId = dao.getCliente(sessions.get(sessionId)).getId();
+		Cupom[] historicoCupons = dao.cuponsDoCliente(clienteId);
+		//System.out.println(historicoCupons.toString());
+		
+		//send the cupons in an JSON object
+		JSONObject returnValue = new JSONObject();
+		if (historicoCupons == null) {
+			return "";
 		}
 		else {
-			returnValue.append("Cupons:   \n\n\n");
 			
-			for (int i = 0; i < historico.length; i++) {
-				if (i < (historico.length - 1)) {
-					returnValue.append(historico[i].dataToString()+";   ");
-				}
-				else {
-					returnValue.append(historico[i].dataToString());
-				}
+			JSONArray arr = new JSONArray();
+			
+
+			for (int i = 0; i < historicoCupons.length; i++) {
+				
+				JSONObject cupom = new JSONObject();
+				//System.out.println(historicoCupons[i].toString());
+				cupom.put("id", historicoCupons[i].getId());
+				cupom.put("codigo", historicoCupons[i].getCodigo());
+				cupom.put("desconto", historicoCupons[i].getDesconto());
+				cupom.put("estoque", historicoCupons[i].getEstoque());
+				cupom.put("id_loja", historicoCupons[i].getLoja());
+				cupom.put("id_assinatura", historicoCupons[i].getAssinatura());
+				
+				arr.put(cupom);
+				//cupom.clear();
 			}
+			
+			returnValue.put("cupons", arr);
 		}
 				
-		
+		System.out.println(returnValue.toString());
 		return returnValue.toString();		
 	}
 
