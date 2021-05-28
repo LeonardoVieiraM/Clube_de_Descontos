@@ -43,6 +43,29 @@ window.onload = () => {
         //alert($("#registerForm").submit());
         //window.location.href = "MainPageLogin.html";
         
+        if(document.getElementById("regName").value == "" || !document.getElementById("regName").value)
+        {
+            alert("Nome de usuario invalido");
+            event.preventDefault();
+            return;
+        }
+        else if(document.getElementById("regEmail").value == "" || 
+                !document.getElementById("regEmail").value || 
+                document.getElementById("regEmail").value.search('@') == -1)
+        {
+            alert("Email invalido");
+            event.preventDefault();
+            return;
+        }
+        else if(document.getElementById("regSenha").value == "" || !document.getElementById("regSenha").value) 
+        {
+            alert("Senha invalida");
+            event.preventDefault();
+            return;
+        }
+
+
+
         var httpRequest01 = new XMLHttpRequest();
         let bodyStr = "";
         bodyStr += "nome=" + document.getElementById("regName").value;
@@ -62,8 +85,8 @@ window.onload = () => {
             //alert(httpRequest01.readyState);
             if(httpRequest01.status == 201)
             {
-                alert("Usuario registrado com sucesso: " + httpRequest01.responseText);
-                localStorage.setItem("currUserEmail", httpRequest01.responseText);
+                alert("Usuario registrado com sucesso: ");
+                localStorage.setItem("sessionId", httpRequest01.responseText);
                 window.location.href = "MainPageLogin.html";
             }
             else if(httpRequest01.status == 202)
@@ -80,9 +103,21 @@ window.onload = () => {
     //=====================================================
 
     document.getElementById("loginButton").onclick = function(event) {
-        
+
+        if(document.getElementById("exampleInputEmail1").value == "")
+        {
+            alert(document.getElementById("exampleInputEmail1").value);
+            return;
+        }
+        else if(document.getElementById("exampleInputPassword1").value == "")
+        {
+            alert(document.getElementById("exampleInputPassword1").value);
+            return;
+        }
+
         var httpRequest03 = new XMLHttpRequest();
         let bodyStr = "";
+
         bodyStr += "email=" +  document.getElementById("exampleInputEmail1").value;
         bodyStr += "&senha=" + document.getElementById("exampleInputPassword1").value;
         let email = document.getElementById("exampleInputEmail1").value;
@@ -90,10 +125,10 @@ window.onload = () => {
         httpRequest03.onload = function() {
             
             //alert(httpRequest01.status);
-            if(httpRequest03.responseText == "true")
+            if(httpRequest03.status == 201)
             {
                 //alert("Usuario registrado com sucesso: " + httpRequest03.responseText);
-                localStorage.setItem("currUserEmail", email);
+                localStorage.setItem("sessionId", httpRequest03.responseText);
                 window.location.href = "MainPageLogin.html";
             }
             else
@@ -113,19 +148,50 @@ window.onload = () => {
     function loadCupons()
     {
         
-        if(this.responseText != "")
+        if(this.status == 201 && this.responseText != "")
         {
+            document.getElementById("trend2").innerHTML = "";
             //alert("! " + this.responseText);
-            document.getElementById("trend2").innerHTML = this.responseText;
-            document.getElementById("searched2").innerHTML = this.responseText;
-            document.getElementById("sports2").innerHTML = this.responseText;
-            document.getElementById("beauty2").innerHTML = this.responseText;
-            document.getElementById("food2").innerHTML = this.responseText;
-            setCardResponse();
-            //let cuponsJson = JSON.parse(this.responseText);
+            let jsonObj = JSON.parse(this.responseText);
+            let i = 0;
+            for(; i < jsonObj.cupons.length; ++i)
+            {
+                document.getElementById("trend2").innerHTML += 
+                "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
+                //"document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
+                //"document.getElementById('cupomLinkButton').onclick = () => {" +
+                    //"alert(123);" + 
+                    //"let httpRequest04 = new XMLHttpRequest();" + 
+                    //"let bodyStr = '';" + 
+                    //"bodyStr += 'codigo_cupom=' + '" + jsonObj.cupons[i].codigo + "';" +
+                    //"bodyStr += '&sessionId=' + '" + localStorage.getItem('sessionId') + "';" + 
+                    //"httpRequest04.onload = function() {};" +
+                    //"httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
+                    //"httpRequest04.send(bodyStr);" +
+                    //"alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
+                    //"};" +
+                //"$(\'#productInfo-modal03\').modal();" + 
+                "\">" +        
+                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/download (1).png\" alt=\"Card image cap\">" +
+                "<div class=\"bannerElem card-body\">" +
+                "<h5 class=\"bannerElem card-title\">" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%</h5>" + 
+                "<p class=\"bannerElem card-text\"></p>" +
+                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
+                "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
+                "</div>" +                       
+                "</div>\n"
+            }
+            while(i % 4 != 0)
+            {
+                document.getElementById("trend2").innerHTML +=
+                    "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>"
+                ++i;
+            }
+            
+
         }
     }
-    httpRequest01.open("GET", "http://localhost:4567/cupons/", true);
+    httpRequest01.open("GET", "http://localhost:4567/cupons/-1", true);
     httpRequest01.onreadystatechange = loadCupons;
     httpRequest01.send();
     
