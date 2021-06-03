@@ -14,12 +14,12 @@ public class DAO {
 	//metodo para conectar c banco de dados
 	public boolean conectar() {
 		String driverName = "org.postgresql.Driver";
-		String serverName = "localhost";
+		String serverName = "cd-db123.postgres.database.azure.com";
 		String mydatabase = "postgres";
 		int porta = 5432;
 		String url = "jdbc:postgresql://" + serverName + ":" + porta + "/" + mydatabase;
-		String username = "postgres";
-		String password = "zelda10";
+		String username = "dbadmin@cd-db123";
+		String password = "@dbpassword123";
 		boolean status = false;
 		
 		try {
@@ -380,7 +380,7 @@ public class DAO {
 		Loja loja = getIdLoja(email);
 		try {
 			Statement st = conexao.createStatement();
-			String sql = "INSERT INTO cupom(codigo,desconto,estoque,id_loja,id_assinatura) VALUES ('" + cupom.getCodigo() + "', " + cupom.getDesconto() + "," 
+			String sql = "INSERT INTO cupom(codigo,classe,desconto,estoque,id_loja,id_assinatura) VALUES ('" + cupom.getCodigo() + "', '" + cupom.getClasse() + "', "+ cupom.getDesconto() + "," 
 			+ cupom.getEstoque() + "," + loja.getId() + "," + cupom.getAssinatura() + ")";
 			
 			st.executeUpdate(sql);
@@ -438,7 +438,7 @@ public class DAO {
 				rs.beforeFirst();
 				
 				for (int i = 0; rs.next();) {
-					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getFloat("desconto"),
+					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getString("classe"), rs.getFloat("desconto"),
 					rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
 					return cupons[0];
 				}
@@ -459,14 +459,14 @@ public class DAO {
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT id,codigo,desconto,estoque,id_loja,id_assinatura FROM cupom AS A INNER JOIN historico AS B ON A.id = B.id_codigo AND B.id_cliente = " + id_cliente + ";");
+			ResultSet rs = st.executeQuery("SELECT id,codigo,classe,desconto,estoque,id_loja,id_assinatura FROM cupom AS A INNER JOIN historico AS B ON A.id = B.id_codigo AND B.id_cliente = " + id_cliente + ";");
 			if (rs.next()) {
 				rs.last();
 				cupons = new Cupom[rs.getRow()];
 				rs.beforeFirst();
 				
 				for (int i = 0; rs.next(); i++) {
-					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getFloat("desconto"),
+					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getString("classe"), rs.getFloat("desconto"),
 					rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
 				}
 			}
@@ -514,6 +514,31 @@ public class DAO {
 	}
 	
 	
+	//pesquisar cupons cujo codigo contem uma substring
+	public Cupom[] pesquisarCupons(String sWord)
+	{
+		Cupom[] cupons = null;
+		System.out.println("->" + sWord);
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM cupom where codigo LIKE '%" + 
+			sWord + "%' OR classe LIKE '%" + sWord + "%'");
+			if (rs.next()) {
+				rs.last();
+				cupons = new Cupom[rs.getRow()];
+				rs.beforeFirst();
+				
+				for (int i = 0; rs.next(); i++) {
+					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getString("classe"), rs.getFloat("desconto"),
+					rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
+				}
+			}
+			st.close();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return cupons;
+	}
 	
 	//pegar todos os cupons de uma loja
 	public Cupom[]  getCupons(String email) {//CHECK
@@ -528,7 +553,7 @@ public class DAO {
 				rs.beforeFirst();
 				
 				for (int i = 0; rs.next(); i++) {
-					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getFloat("desconto"),
+					cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getString("classe"), rs.getFloat("desconto"),
 					rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
 				}
 			}
@@ -553,7 +578,7 @@ public class DAO {
 					rs.beforeFirst();
 					
 					for (int i = 0; rs.next(); i++) {
-						cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getFloat("desconto"),
+						cupons[i] = new Cupom(rs.getInt("id"), rs.getString("codigo"), rs.getString("classe"), rs.getFloat("desconto"),
 						rs.getInt("estoque"), rs.getInt("id_loja"), rs.getInt("id_assinatura"));
 					}
 				}

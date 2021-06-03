@@ -58,7 +58,7 @@ public class Principal {
 	
 	
 	//Cliente	
-	public Object inserirCliente(Request request, Response response){
+	public Object inserirCliente(Request request, Response response) throws Exception{
 		DAO dao = DAO();
 		
 		dao.conectar();
@@ -75,6 +75,8 @@ public class Principal {
 		senha.replace('\"', 'ÿ');
 		
 		int id_assinatura = Integer.parseInt(clienteMap.get("id_assinatura"));
+		
+		senha = MD5.main(senha);
 		
 		Cliente cliente = new Cliente(0,email,nome,nascimento,senha,id_assinatura);
 		
@@ -187,7 +189,7 @@ public class Principal {
 		return "O email foi atualizado para: "+ email_novo ;
 	}
 	
-	public Object atualizarClienteSenha(Request request, Response response) {
+	public Object atualizarClienteSenha(Request request, Response response) throws Exception {
 		DAO dao = DAO();
 		
 		dao.conectar();
@@ -200,6 +202,7 @@ public class Principal {
 		cliente.setEmail(email);
 		cliente.setSenha(nova_senha);
 		
+		nova_senha = MD5.main(nova_senha);
 		
 		dao.atualizarClienteSenha(cliente);
 		
@@ -229,7 +232,7 @@ public class Principal {
 		return "A assinatura do cliente foi atualizada.";
 	}
 
-	public Object loginCliente(Request request, Response response){
+	public Object loginCliente(Request request, Response response) throws Exception{
 		boolean status = false;
 		DAO dao = DAO();
 		
@@ -238,8 +241,14 @@ public class Principal {
 		Map<String, String> clienteMap = getQueryMap(request.body());
 		
 		String email = clienteMap.get("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String senha =  clienteMap.get("senha");
+		senha.replace('\'', 'ÿ');
+		senha.replace('\"', 'ÿ');
 	
+		senha = MD5.main(senha);
+		
 		Cliente cliente = dao.getCliente(email, senha);
 		
 		if (cliente.getEmail().equals(email)) {
@@ -277,15 +286,25 @@ public class Principal {
 	
 	//Loja
 	
-	public Object inserirLoja(Request request, Response response){
+	public Object inserirLoja(Request request, Response response) throws Exception {
 		DAO dao = DAO();
 		
 		dao.conectar();
 		
 		String email = request.queryParams("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String nome =  request.queryParams("nome");
+		nome.replace('\'', 'ÿ');
+		nome.replace('\"', 'ÿ');
 		String site =  request.queryParams("site");
+		site.replace('\'', 'ÿ');
+		site.replace('\"', 'ÿ');
 		String senha =  request.queryParams("senha");
+		senha.replace('\'', 'ÿ');
+		senha.replace('\"', 'ÿ');
+		
+		senha = MD5.main(senha);
 		
 		Loja loja = new Loja(-1,email,nome,site,senha);
 		
@@ -303,6 +322,8 @@ public class Principal {
 		dao.conectar();
 		
 		String email = request.queryParams("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		Loja loja = new Loja();
 		loja.setEmail(email);
 		dao.excluirLoja(loja);
@@ -330,14 +351,19 @@ public class Principal {
 		return "O email foi atualizado para: "+ email_novo ;
 	}
 	
-	public Object atualizarLojaSenha(Request request, Response response) {
+	public Object atualizarLojaSenha(Request request, Response response) throws Exception {
 		DAO dao = DAO();
 		
 		dao.conectar();
 		
 		String email =  request.queryParams("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String nova_senha =  request.queryParams("nova_senha");
+		nova_senha.replace('\'', 'ÿ');
+		nova_senha.replace('\"', 'ÿ');
 		
+		nova_senha = MD5.main(nova_senha);
 		
 		Loja loja = new Loja();
 		loja.setEmail(email);
@@ -357,7 +383,11 @@ public class Principal {
 		dao.conectar();
 		
 		String email =  request.queryParams("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String site =  request.queryParams("site");
+		site.replace('\'', 'ÿ');
+		site.replace('\"', 'ÿ');
 		
 		Loja loja = new Loja();
 		loja.setEmail(email);
@@ -371,15 +401,20 @@ public class Principal {
 		return "O site da loja foi atualizada.";
 	}
 
-	public boolean loginLoja(Request request, Response response){
+	public boolean loginLoja(Request request, Response response) throws Exception {
 		boolean status = false;
 		DAO dao = DAO();
 		
 		dao.conectar();
 		
 		String email = request.queryParams("email");
+		email.replace('\'', 'ÿ');
+		email.replace('\"', 'ÿ');
 		String senha =  request.queryParams("senha");
+		senha.replace('\'', 'ÿ');
+		senha.replace('\"', 'ÿ');
 		
+		senha = MD5.main(senha);
 		
 		Loja loja = dao.getLoja(email, senha);
 		
@@ -401,14 +436,19 @@ public class Principal {
 		
 		dao.conectar();
 		
-		int id = Integer.parseInt(request.queryParams("id"));
-		String codigo = request.queryParams("codigo");
-		float desconto =  Float.parseFloat(request.queryParams("desconto"));
-		int estoque = Integer.parseInt(request.queryParams("estoque"));
-		String email_loja = request.queryParams("email_loja");
-		int id_assinatura = Integer.parseInt(request.queryParams("id_assinatura"));
+		int id = Integer.parseInt(request.params("id"));
+		String codigo = request.params("codigo");
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
+		String classe = request.params("classe");
+		float desconto =  Float.parseFloat(request.params("desconto"));
+		int estoque = Integer.parseInt(request.params("estoque"));
+		String email_loja = request.params("email_loja");
+		email_loja.replace('\'', 'ÿ');
+		email_loja.replace('\"', 'ÿ');
+		int id_assinatura = Integer.parseInt(request.params("id_assinatura"));
 		
-		Cupom cupom = new Cupom(id,codigo,desconto,estoque,-1,id_assinatura);
+		Cupom cupom = new Cupom(id,codigo,classe,desconto,estoque,-1,id_assinatura);
 		
 		dao.inserirCupom(cupom, email_loja);
 		
@@ -423,6 +463,8 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
 		int estoque =  Integer.parseInt(request.queryParams("estoque"));
 		
 		
@@ -443,6 +485,8 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
 		float desconto =  Float.parseFloat(request.queryParams("desconto"));
 		
 		
@@ -463,7 +507,8 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
-		
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
 		
 		dao.queimarCupom(codigo);
 		
@@ -479,6 +524,9 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo = request.queryParams("codigo");
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
+		
 		Cupom cupom = new Cupom();
 		cupom.setCodigo(codigo);
 		dao.excluirCupom(cupom);
@@ -527,6 +575,7 @@ public class Principal {
 				//System.out.println(historicoCupons[i].toString());
 				cupom.put("id", cupons[i].getId());
 				cupom.put("codigo", cupons[i].getCodigo());
+				cupom.put("classe", cupons[i].getClasse());
 				cupom.put("desconto", cupons[i].getDesconto());
 				cupom.put("estoque", cupons[i].getEstoque());
 				cupom.put("id_loja", cupons[i].getLoja());
@@ -543,6 +592,58 @@ public class Principal {
 		return returnValue.toString();	
 	}
 
+	
+	
+	public Object pesquisarCupons(Request request, Response response) {
+		DAO dao = DAO();
+		
+		dao.conectar();
+		
+		String searchWord = request.params("searchWord");
+		searchWord.replace('\'', 'ÿ');
+		searchWord.replace('\"', 'ÿ');
+		
+		response.status(201);
+		System.out.println("--) " + searchWord);
+		Cupom[] cupons = dao.pesquisarCupons(searchWord);
+		//System.out.println(historicoCupons.toString());
+		
+		//send the cupons in an JSON object
+		JSONObject returnValue = new JSONObject();
+		if (cupons == null) {
+			return "";
+		}
+		else {
+			
+			JSONArray arr = new JSONArray();
+			
+
+			for (int i = 0; i < cupons.length; i++) {
+				
+				JSONObject cupom = new JSONObject();
+				//System.out.println(historicoCupons[i].toString());
+				cupom.put("id", cupons[i].getId());
+				cupom.put("codigo", cupons[i].getCodigo());
+				cupom.put("classe", cupons[i].getClasse());
+				cupom.put("desconto", cupons[i].getDesconto());
+				cupom.put("estoque", cupons[i].getEstoque());
+				cupom.put("id_loja", cupons[i].getLoja());
+				cupom.put("id_assinatura", cupons[i].getAssinatura());
+				
+				arr.put(cupom);
+				//cupom.clear();
+			}
+			
+			returnValue.put("cupons", arr);
+		}
+
+		System.out.println(returnValue.toString());
+		return returnValue.toString();	
+	}
+	
+	
+	
+	
 	//Histórico
 
 	public Object inserirHistorico(Request request, Response response){
@@ -552,6 +653,8 @@ public class Principal {
 		
 		Map<String, String> clienteMap = getQueryMap(request.body());
 		String codigo = clienteMap.get("codigo_cupom");		
+		codigo.replace('\'', 'ÿ');
+		codigo.replace('\"', 'ÿ');
 		String sessionIdStr = clienteMap.get("sessionId");
 		long sessionId = Long.parseLong(sessionIdStr);
 		if(!sessions.containsKey(sessionId) || 
@@ -608,6 +711,7 @@ public class Principal {
 				//System.out.println(historicoCupons[i].toString());
 				cupom.put("id", historicoCupons[i].getId());
 				cupom.put("codigo", historicoCupons[i].getCodigo());
+				cupom.put("classe", historicoCupons[i].getClasse());
 				cupom.put("desconto", historicoCupons[i].getDesconto());
 				cupom.put("estoque", historicoCupons[i].getEstoque());
 				cupom.put("id_loja", historicoCupons[i].getLoja());

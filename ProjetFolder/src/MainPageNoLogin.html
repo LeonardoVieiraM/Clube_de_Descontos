@@ -107,6 +107,24 @@
         </div>
 
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="contact-info-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        Você é uma loja/empresa?
+                        Entre em contato com: <b>exampleemail123@gmail.com</b>
+                        <br><br>
+                        Se você tiver alguma reclamação, entre em contato com: <b>exampleemail456@gmail.com</b>
+                        <br><br>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
         <div class="modal fade" tabindex="-1" role="dialog" id="productInfo-modal03">
             
         </div>
@@ -118,22 +136,26 @@
     <header>
      <div class="conteudo1">
         <div class="topnav">
-          <input id="SearchBarId" type="text" placeholder="Search..">
-          <!--<a id="categoriasId" href="#about">Categorias</a>-->
-          <a id="loginId" class="active" href="#home" data-toggle="modal"data-target="#login-modal">Login</a>
+          <input id="SearchBarId" type="text" placeholder="Search.." onsubmit="alert(123);">
+          <i id="searchIcon" class="fas fa-search" href="#home" data-toggle="modal" data-target="#login-modal"
+          onclick="alert('Faça login para pesquisar');"></i>
+          <a id="loginId" class="" href="#home" data-toggle="modal" data-target="#contact-info-modal">Entre em contato</a>
+          <a id="loginId" class="active" href="#home" data-toggle="modal" data-target="#login-modal">Login</a>
         </div>
       </div>  
     </header>
-
+    
         <section style="width: 100%;">
+
+            <!--
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Trends</p>
+                    <p style="display: inline;"> <br><br> Recomendado</p>
                     <button class="btn" id="trend1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
                 <div class="row cards2 gx-5 justify-content-around" id="trend2">
-                    <!--
+                    
                     <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" onclick="">
                         
                         <img class="bannerElem card-img-top" src="../Assets/imgs/mainPageImg03-Prod.jpg" alt="Card image cap">
@@ -145,13 +167,13 @@
                     </div>
 
                     <div class="card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3"></div>
-                    -->
-            </div>
+                    
+                </div>
 
             </div>
-
+            -->
             
-            
+            <!--
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Most Searched </p>
@@ -165,10 +187,11 @@
                 </div>
 
             </div>
+        -->
 
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Sports </p>
+                    <p style="display: inline;"> <br><br> Esportes </p>
                     <button class="btn" id="sports1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
@@ -184,7 +207,7 @@
 
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Beauty </p>
+                    <p style="display: inline;"> <br><br> Beleza </p>
                     <button class="btn" id="beauty1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
@@ -200,7 +223,7 @@
 
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Food </p>
+                    <p style="display: inline;"> <br><br> Comida </p>
                     <button class="btn" id="food1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 

@@ -112,12 +112,15 @@ function afterAuthentication()
         if(this.status == 201 && this.responseText != "")
         {
             document.getElementById("trend2").innerHTML = "";
+            document.getElementById("food2").innerHTML = "";
+            document.getElementById("sports2").innerHTML = "";
+            document.getElementById("beauty2").innerHTML = "";
             //alert("! " + this.responseText);
             let jsonObj = JSON.parse(this.responseText);
             let i = 0;
             for(; i < jsonObj.cupons.length; ++i)
             {
-                document.getElementById("trend2").innerHTML += 
+                let cupomTxt = 
                 "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
                 "document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
                 "document.getElementById('cupomLinkButton').onclick = () => {" +
@@ -128,7 +131,6 @@ function afterAuthentication()
                     "httpRequest04.onload = function() {};" +
                     "httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
                     "httpRequest04.send(bodyStr);" +
-                    "alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
                     "};" +
                 "$(\'#productInfo-modal03\').modal();" + 
                 "\">" +        
@@ -140,6 +142,24 @@ function afterAuthentication()
                 "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
                 "</div>" +                       
                 "</div>\n"
+
+                if(i < 4)
+                    document.getElementById("trend2").innerHTML += cupomTxt;
+                switch(jsonObj.cupons[i].classe)
+                {
+                    case "food":
+                        document.getElementById("food2").innerHTML += cupomTxt;
+                        break;
+                    case "beauty":
+                        document.getElementById("beauty2").innerHTML += cupomTxt;
+                        break;
+                    case "sport":
+                        document.getElementById("sports2").innerHTML += cupomTxt;
+                        break;
+                    default:
+                        alert(0);
+                        break;
+                }
             }
             while(i % 4 != 0)
             {
@@ -152,193 +172,6 @@ function afterAuthentication()
         }
     }
 
-    //===============================================
-
-    function loadSearchedCupons()
-    {
-        if(this.status == 201 && this.responseText != "")
-        {
-            document.getElementById("searched2").innerHTML = "";
-            //alert("! " + this.responseText);
-            let jsonObj = JSON.parse(this.responseText);
-            let i = 0;
-            for(; i < jsonObj.cupons.length; ++i)
-            {
-                document.getElementById("searched2").innerHTML += 
-                "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
-                "document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
-                "document.getElementById('cupomLinkButton').onclick = () => {" +
-                    "let httpRequest04 = new XMLHttpRequest();" + 
-                    "let bodyStr = '';" + 
-                    "bodyStr += 'codigo_cupom=' + '" + jsonObj.cupons[i].codigo + "';" +
-                    "bodyStr += '&sessionId=' + '" + localStorage.getItem('sessionId') + "';" + 
-                    "httpRequest04.onload = function() {};" +
-                    "httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
-                    "httpRequest04.send(bodyStr);" +
-                    "alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
-                    "};" +
-                "$(\'#productInfo-modal03\').modal();" + 
-                "\">" +        
-                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/download (1).png\" alt=\"Card image cap\">" +
-                "<div class=\"bannerElem card-body\">" +
-                "<h5 class=\"bannerElem card-title\">" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%</h5>" + 
-                "<p class=\"bannerElem card-text\"></p>" +
-                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
-                "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
-                "</div>" +                       
-                "</div>\n"
-            }
-            while(i % 4 != 0)
-            {
-                document.getElementById("searched2").innerHTML +=
-                    "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>"
-                ++i;
-            }
-            
-
-        }
-    }
-
-    //====================================================
-
-    function loadSportCupons()
-    {
-        if(this.status == 201 && this.responseText != "")
-        {
-            document.getElementById("sports2").innerHTML = "";
-            //alert("! " + this.responseText);
-            let jsonObj = JSON.parse(this.responseText);
-            let i = 0;
-            for(; i < jsonObj.cupons.length; ++i)
-            {
-                document.getElementById("sports2").innerHTML += 
-                "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
-                "document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
-                "document.getElementById('cupomLinkButton').onclick = () => {" +
-                    "let httpRequest04 = new XMLHttpRequest();" + 
-                    "let bodyStr = '';" + 
-                    "bodyStr += 'codigo_cupom=' + '" + jsonObj.cupons[i].codigo + "';" +
-                    "bodyStr += '&sessionId=' + '" + localStorage.getItem('sessionId') + "';" + 
-                    "httpRequest04.onload = function() {};" +
-                    "httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
-                    "httpRequest04.send(bodyStr);" +
-                    "alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
-                    "};" +
-                "$(\'#productInfo-modal03\').modal();" + 
-                "\">" +        
-                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/download (1).png\" alt=\"Card image cap\">" +
-                "<div class=\"bannerElem card-body\">" +
-                "<h5 class=\"bannerElem card-title\">" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%</h5>" + 
-                "<p class=\"bannerElem card-text\"></p>" +
-                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
-                "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
-                "</div>" +                       
-                "</div>\n"
-            }
-            while(i % 4 != 0)
-            {
-                document.getElementById("sports2").innerHTML +=
-                    "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>"
-                ++i;
-            }
-            
-
-        }
-    }
-
-    //=========================================
-
-    function loadBeautyCupons()
-    {
-        if(this.status == 201 && this.responseText != "")
-        {
-            document.getElementById("beauty2").innerHTML = "";
-            //alert("! " + this.responseText);
-            let jsonObj = JSON.parse(this.responseText);
-            let i = 0;
-            for(; i < jsonObj.cupons.length; ++i)
-            {
-                document.getElementById("beauty2").innerHTML += 
-                "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
-                "document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
-                "document.getElementById('cupomLinkButton').onclick = () => {" +
-                    "let httpRequest04 = new XMLHttpRequest();" + 
-                    "let bodyStr = '';" + 
-                    "bodyStr += 'codigo_cupom=' + '" + jsonObj.cupons[i].codigo + "';" +
-                    "bodyStr += '&sessionId=' + '" + localStorage.getItem('sessionId') + "';" + 
-                    "httpRequest04.onload = function() {};" +
-                    "httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
-                    "httpRequest04.send(bodyStr);" +
-                    "alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
-                    "};" +
-                "$(\'#productInfo-modal03\').modal();" + 
-                "\">" +        
-                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/download (1).png\" alt=\"Card image cap\">" +
-                "<div class=\"bannerElem card-body\">" +
-                "<h5 class=\"bannerElem card-title\">" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%</h5>" + 
-                "<p class=\"bannerElem card-text\"></p>" +
-                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
-                "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
-                "</div>" +                       
-                "</div>\n"
-            }
-            while(i % 4 != 0)
-            {
-                document.getElementById("beauty2").innerHTML +=
-                    "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>"
-                ++i;
-            }
-            
-
-        }
-    }
-
-    //==============================================
-
-    function loadFoodCupons()
-    {
-        if(this.status == 201 && this.responseText != "")
-        {
-            document.getElementById("food2").innerHTML = "";
-            //alert("! " + this.responseText);
-            let jsonObj = JSON.parse(this.responseText);
-            let i = 0;
-            for(; i < jsonObj.cupons.length; ++i)
-            {
-                document.getElementById("food2").innerHTML += 
-                "<div class=\"card col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\" onclick=\"" +
-                "document.getElementById('cardTitle').innerHTML = \'" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%\';" + 
-                "document.getElementById('cupomLinkButton').onclick = () => {" + 
-                    "let httpRequest04 = new XMLHttpRequest();" + 
-                    "let bodyStr = '';" + 
-                    "bodyStr += 'codigo_cupom=' + '" + jsonObj.cupons[i].codigo + "';" +
-                    "bodyStr += '&sessionId=' + '" + localStorage.getItem('sessionId') + "';" + 
-                    "httpRequest04.onload = function() {};" +
-                    "httpRequest04.open('POST', 'http://localhost:4567/historico/add', true);" +
-                    "httpRequest04.send(bodyStr);" +
-                    "alert('' + '" + jsonObj.cupons[i].codigo + "' + ' adicionado ao historico');" + 
-                    "};" +
-                "$(\'#productInfo-modal03\').modal();" + 
-                "\">" +        
-                "<img class=\"bannerElem card-img-top\" src=\"../Assets/imgs/download (1).png\" alt=\"Card image cap\">" +
-                "<div class=\"bannerElem card-body\">" +
-                "<h5 class=\"bannerElem card-title\">" + jsonObj.cupons[i].codigo + " - " + jsonObj.cupons[i].desconto + "%</h5>" + 
-                "<p class=\"bannerElem card-text\"></p>" +
-                "<button style=\"text-align:center; margin: 0; display:none; background-color: rgb(75, 75, 75); color: white;\" onclick= >ir para o site da loja </button>" +
-                "<!--cuponId:" + jsonObj.cupons[i].codigo + ";-->" +
-                "</div>" +                       
-                "</div>\n"
-            }
-            while(i % 4 != 0)
-            {
-                document.getElementById("food2").innerHTML +=
-                    "<div class=\"cardFill col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3\"></div>"
-                ++i;
-            }
-            
-
-        }
-    }
 
     
 

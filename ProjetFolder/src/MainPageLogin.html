@@ -45,11 +45,16 @@
             <div class="conteudo1">
                 <div class="topnav">
                     <input id="SearchBarId" type="text" placeholder="Search..">
-                    <!--<a id="categoriasId" href="#about">Categorias</a>-->
+                    <i id="searchIcon" class="fas fa-search"
+                        onclick="if(getElementById('SearchBarId').value != '') {
+                        localStorage.setItem('searchValue', getElementById('SearchBarId').value);
+                        window.location.href='SearchPage.html';}"></i>
                     <a id="loginId" class="active" href="Account.html">Minha Conta</a>
                 </div>
             </div>
         </header>
+
+        
 
         <section style="width: 100%;">
 
@@ -69,7 +74,7 @@
             </div>
 
             
-            
+            <!--
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
                     <p style="display: inline;"> <br><br> Most Searched </p>
@@ -83,10 +88,10 @@
                 </div>
 
             </div>
-
+-->
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Sports </p>
+                    <p style="display: inline;"> <br><br> Esportes </p>
                     <button class="btn" id="sports1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
@@ -99,7 +104,7 @@
 
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Beauty </p>
+                    <p style="display: inline;"> <br><br> Beleza </p>
                     <button class="btn" id="beauty1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 
@@ -115,7 +120,7 @@
 
             <div class="conteudo3 container-fluid">
                 <div class="conteudo2">
-                    <p style="display: inline;"> <br><br> Food </p>
+                    <p style="display: inline;"> <br><br> Comida </p>
                     <button class="btn" id="food1"><i class="fas fa-chevron-circle-up" ></i></button>
                 </div>
 

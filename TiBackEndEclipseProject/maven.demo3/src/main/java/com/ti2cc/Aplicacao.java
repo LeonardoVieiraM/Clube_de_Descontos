@@ -37,6 +37,7 @@ public class Aplicacao {
 		get("/cupom/update/discount", (request, response) -> cupomService.atualizarCupomDesconto(request, response));
 		get("/cupom/update/used", (request, response) -> cupomService.queimarCupom(request, response));
 		get("/cupons/:sessionId", (request, response) -> cupomService.listarCupons(request, response));
+		get("/cupons/pesquisar/:searchWord", (request, response) -> cupomService.pesquisarCupons(request, response));
 		
 		//Historico
 		post("/historico/add", (request, response) -> historicoService.inserirHistorico(request, response));
