@@ -64,15 +64,12 @@ public class Principal {
 		dao.conectar();
 		Map<String, String> clienteMap = getQueryMap(request.body());
 		String email = clienteMap.get("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String nome =  clienteMap.get("nome");
-		nome.replace('\'', 'ÿ');
-		nome.replace('\"', 'ÿ');
+		nome.replace("'", "ÿ");
 		String nascimento =  "01/01/2000"; //request.queryParams("nascimento");
 		String senha =  clienteMap.get("senha");
-		senha.replace('\'', 'ÿ');
-		senha.replace('\"', 'ÿ');
+		senha.replace("'", "ÿ");
 		
 		int id_assinatura = Integer.parseInt(clienteMap.get("id_assinatura"));
 		
@@ -241,11 +238,9 @@ public class Principal {
 		Map<String, String> clienteMap = getQueryMap(request.body());
 		
 		String email = clienteMap.get("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String senha =  clienteMap.get("senha");
-		senha.replace('\'', 'ÿ');
-		senha.replace('\"', 'ÿ');
+		senha.replace("'", "ÿ");
 	
 		senha = MD5.main(senha);
 		
@@ -292,17 +287,13 @@ public class Principal {
 		dao.conectar();
 		
 		String email = request.queryParams("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String nome =  request.queryParams("nome");
-		nome.replace('\'', 'ÿ');
-		nome.replace('\"', 'ÿ');
+		nome.replace("'", "ÿ");
 		String site =  request.queryParams("site");
-		site.replace('\'', 'ÿ');
-		site.replace('\"', 'ÿ');
+		site.replace("'", "ÿ");
 		String senha =  request.queryParams("senha");
-		senha.replace('\'', 'ÿ');
-		senha.replace('\"', 'ÿ');
+		senha.replace("'", "ÿ");
 		
 		senha = MD5.main(senha);
 		
@@ -322,8 +313,7 @@ public class Principal {
 		dao.conectar();
 		
 		String email = request.queryParams("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		Loja loja = new Loja();
 		loja.setEmail(email);
 		dao.excluirLoja(loja);
@@ -357,11 +347,9 @@ public class Principal {
 		dao.conectar();
 		
 		String email =  request.queryParams("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String nova_senha =  request.queryParams("nova_senha");
-		nova_senha.replace('\'', 'ÿ');
-		nova_senha.replace('\"', 'ÿ');
+		nova_senha.replace("'", "ÿ");
 		
 		nova_senha = MD5.main(nova_senha);
 		
@@ -383,11 +371,9 @@ public class Principal {
 		dao.conectar();
 		
 		String email =  request.queryParams("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String site =  request.queryParams("site");
-		site.replace('\'', 'ÿ');
-		site.replace('\"', 'ÿ');
+		site.replace("'", "ÿ");
 		
 		Loja loja = new Loja();
 		loja.setEmail(email);
@@ -408,11 +394,9 @@ public class Principal {
 		dao.conectar();
 		
 		String email = request.queryParams("email");
-		email.replace('\'', 'ÿ');
-		email.replace('\"', 'ÿ');
+		email.replace("'", "ÿ");
 		String senha =  request.queryParams("senha");
-		senha.replace('\'', 'ÿ');
-		senha.replace('\"', 'ÿ');
+		senha.replace("'", "ÿ");
 		
 		senha = MD5.main(senha);
 		
@@ -436,19 +420,16 @@ public class Principal {
 		
 		dao.conectar();
 		
-		int id = Integer.parseInt(request.params("id"));
-		String codigo = request.params("codigo");
-		codigo.replace('\'', 'ÿ');
-		codigo.replace('\"', 'ÿ');
-		String classe = request.params("classe");
-		float desconto =  Float.parseFloat(request.params("desconto"));
-		int estoque = Integer.parseInt(request.params("estoque"));
-		String email_loja = request.params("email_loja");
-		email_loja.replace('\'', 'ÿ');
-		email_loja.replace('\"', 'ÿ');
-		int id_assinatura = Integer.parseInt(request.params("id_assinatura"));
+		int id = Integer.parseInt(request.queryParams("id"));
+		String codigo = request.queryParams("codigo");
+		codigo.replace("'", "ÿ");
+		float desconto =  Float.parseFloat(request.queryParams("desconto"));
+		int estoque = Integer.parseInt(request.queryParams("estoque"));
+		String email_loja = request.queryParams("email_loja");
+		email_loja.replace("'", "ÿ");
+		int id_assinatura = Integer.parseInt(request.queryParams("id_assinatura"));
 		
-		Cupom cupom = new Cupom(id,codigo,classe,desconto,estoque,-1,id_assinatura);
+		Cupom cupom = new Cupom(id,codigo,desconto,estoque,-1,id_assinatura);
 		
 		dao.inserirCupom(cupom, email_loja);
 		
@@ -463,8 +444,7 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
-		codigo.replace('\'', 'ÿ');
-		codigo.replace('\"', 'ÿ');
+		codigo.replace("'", "ÿ");
 		int estoque =  Integer.parseInt(request.queryParams("estoque"));
 		
 		
@@ -485,8 +465,7 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
-		codigo.replace('\'', 'ÿ');
-		codigo.replace('\"', 'ÿ');
+		codigo.replace("'", "ÿ");
 		float desconto =  Float.parseFloat(request.queryParams("desconto"));
 		
 		
@@ -507,8 +486,7 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo =  request.queryParams("codigo");
-		codigo.replace('\'', 'ÿ');
-		codigo.replace('\"', 'ÿ');
+		codigo.replace("'", "ÿ");
 		
 		dao.queimarCupom(codigo);
 		
@@ -524,8 +502,7 @@ public class Principal {
 		dao.conectar();
 		
 		String codigo = request.queryParams("codigo");
-		codigo.replace('\'', 'ÿ');
-		codigo.replace('\"', 'ÿ');
+		codigo.replace("'", "ÿ");
 		
 		Cupom cupom = new Cupom();
 		cupom.setCodigo(codigo);
@@ -575,7 +552,6 @@ public class Principal {
 				//System.out.println(historicoCupons[i].toString());
 				cupom.put("id", cupons[i].getId());
 				cupom.put("codigo", cupons[i].getCodigo());
-				cupom.put("classe", cupons[i].getClasse());
 				cupom.put("desconto", cupons[i].getDesconto());
 				cupom.put("estoque", cupons[i].getEstoque());
 				cupom.put("id_loja", cupons[i].getLoja());
@@ -624,7 +600,6 @@ public class Principal {
 				//System.out.println(historicoCupons[i].toString());
 				cupom.put("id", cupons[i].getId());
 				cupom.put("codigo", cupons[i].getCodigo());
-				cupom.put("classe", cupons[i].getClasse());
 				cupom.put("desconto", cupons[i].getDesconto());
 				cupom.put("estoque", cupons[i].getEstoque());
 				cupom.put("id_loja", cupons[i].getLoja());
@@ -711,7 +686,6 @@ public class Principal {
 				//System.out.println(historicoCupons[i].toString());
 				cupom.put("id", historicoCupons[i].getId());
 				cupom.put("codigo", historicoCupons[i].getCodigo());
-				cupom.put("classe", historicoCupons[i].getClasse());
 				cupom.put("desconto", historicoCupons[i].getDesconto());
 				cupom.put("estoque", historicoCupons[i].getEstoque());
 				cupom.put("id_loja", historicoCupons[i].getLoja());
